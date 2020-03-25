@@ -22,6 +22,7 @@ namespace ImportacaoUsuarios.Models
         [Required]
         public int UserId { get; set; }
 
+        /*
         public UsuariosIntermediario() { }
 
         public UsuariosIntermediario(string nome, string email, DateTime dataNascimento, char sexo, int userId)
@@ -32,5 +33,6 @@ namespace ImportacaoUsuarios.Models
             Sexo = sexo;
             UserId = userId;
         }
+        */
     }
 }

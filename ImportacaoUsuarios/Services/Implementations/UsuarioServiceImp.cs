@@ -31,46 +31,60 @@ namespace ImportacaoUsuarios.Services.Implementations
                 int Ignorado = 0;
                 int Falha = 0;
 
-                foreach(UsuariosIntermediario usuariosIntermediario in listaUsuariosIntermediario)
+                foreach (UsuariosIntermediario usuariosIntermediario in listaUsuariosIntermediario)
                 {
-                    Usuarios usuarios = new Usuarios(usuariosIntermediario.UserId, usuariosIntermediario.Nome,
-                        usuariosIntermediario.Email, usuariosIntermediario.DataNascimento, usuariosIntermediario.Sexo);
+                    /*Usuarios usuarios = new Usuarios(usuariosIntermediario.UserId, usuariosIntermediario.Nome,
+                        usuariosIntermediario.Email, usuariosIntermediario.DataNascimento, usuariosIntermediario.Sexo);*/
+                    Usuarios usuarios = new Usuarios()
+                    {
+                        Id = usuariosIntermediario.UserId,
+                        Nome = usuariosIntermediario.Nome,
+                        Email = usuariosIntermediario.Email,
+                        DataNascimento = usuariosIntermediario.DataNascimento,
+                        Sexo = usuariosIntermediario.Sexo
+                    };
                     var opUser = _repository.FindById(usuarios.Id);
                     if (opUser != null)
                     {
-                        if(opUser.Equals(usuarios))
+                        if (opUser.Equals(usuarios))
                         {
                             Ignorado++;
-                        } else
+                        }
+                        else
                         {
                             Usuarios email = _repository.FindByEmail(usuarios.Email);
-                            if(email != null && email.Id != usuarios.Id)
+                            if (email != null && email.Id != usuarios.Id)
                             {
                                 Falha++;
-                            } else
+                            }
+                            else
                             {
                                 _repository.Update(usuarios);
                                 Alterado++;
                             }
                         }
-                    } else
+                    }
+                    else
                     {
                         Usuarios email = _repository.FindByEmail(usuarios.Email);
                         if (email != null)
                         {
                             Falha++;
-                        } else
+                        }
+                        else
                         {
                             _repository.Insert(usuarios);
                             Inserido++;
                         }
                     }
                 }
-                UsuariosDTO userDto = new UsuariosDTO();
-                userDto.Inserido = Inserido;
-                userDto.Alterado = Alterado;
-                userDto.Ignorado = Ignorado;
-                userDto.Falha = Falha;
+                UsuariosDTO userDto = new UsuariosDTO()
+                {
+                    Inserido = Inserido,
+                    Alterado = Alterado,
+                    Ignorado = Ignorado,
+                    Falha = Falha
+                };
                 _intermediarioService.DeleteAll();
                 return userDto;
             } catch (Exception e)

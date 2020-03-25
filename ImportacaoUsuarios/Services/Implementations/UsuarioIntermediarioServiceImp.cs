@@ -77,7 +77,15 @@ namespace ImportacaoUsuarios.Services.Implementations
                         if (Nome != null && Nome != "" || Email != null && Email != "" ||
                         DataFormatada != null || Sexo != null && Sexo != "")
                         {
-                            UsuariosIntermediario user = new UsuariosIntermediario(Nome, Email, DataFormatada, Char.Parse(Sexo), Id);
+                            //UsuariosIntermediario user = new UsuariosIntermediario(Nome, Email, DataFormatada, Char.Parse(Sexo), Id);
+                            UsuariosIntermediario user = new UsuariosIntermediario()
+                            {
+                                Nome = Nome,
+                                Email = Email,
+                                DataNascimento = DataFormatada,
+                                Sexo = Char.Parse(Sexo),
+                                UserId = Id
+                            };
                             listaUsuariosIntermediario.Add(user);
                         }
                         else
@@ -95,9 +103,7 @@ namespace ImportacaoUsuarios.Services.Implementations
             } catch (IOException e)
             {
                 Console.WriteLine(e.Message);
-                //Console.WriteLine(e.ToString());
-                Console.WriteLine("oi");
-                //throw e;
+                throw e;
             }
         }
     }

@@ -22,6 +22,7 @@ namespace ImportacaoUsuarios.Models
         [Required]
         public char Sexo { get; set; }
 
+        /*
         public Usuarios() { }
 
         public Usuarios(int id, string nome, string email, DateTime dataNascimento, char sexo)
@@ -32,6 +33,7 @@ namespace ImportacaoUsuarios.Models
             DataNascimento = dataNascimento;
             Sexo = sexo;
         }
+        */
 
         public override bool Equals(object obj)
         {
